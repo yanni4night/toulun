@@ -1,0 +1,26 @@
+{
+  "name": "toulun",
+  "version": "0.1.0",
+  "description": "A tool which make creating simple static web app much easier",
+  "main": "index.js",
+  "bin":"bin/toulun",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/yanni4night/toulun.git"
+  },
+  "keywords": [
+    "tool",
+    "toulun",
+    "grunt"
+  ],
+  "author": "yanni4night@gmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yanni4night/toulun/issues"
+  },
+  "dependencies":{
+    "colors":"~0.6.2",
+    "commander":"~2.2.0"
+    },
+  "homepage": "https://github.com/yanni4night/toulun"
+}

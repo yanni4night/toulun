@@ -1,0 +1,41 @@
+#!/usr/bin/env node
+
+var fs = require('fs');
+var colors = require('colors');
+var program = require('commander');
+var packaging = JSON.parse(fs.readFileSync(__dirname+'/../package.json', {
+    encoding: 'utf-8'
+}));
+
+colors.setTheme({
+    silly: 'rainbow',
+    input: 'grey',
+    verbose: 'cyan',
+    prompt: 'grey',
+    info: 'green',
+    data: 'grey',
+    help: 'cyan',
+    warn: 'yellow',
+    debug: 'blue',
+    error: 'red'
+});
+
+
+program
+    .version(packaging.version)
+    .option('-d, --directory [directory]', 'Target directory')
+    .option('-f, --force', 'Still initialize even the directory is not empty')
+    .parse(process.argv);
+
+currentDirectory = program.directory || '.';
+
+if (!fs.existsSync(currentDirectory)) {
+    console.error('"%s" does not exist!'.error, currentDirectory);
+    process.exit(0);
+}
+
+var files = fs.readdirSync(currentDirectory);
+if (files.length && !program.force) {
+    console.error('"%s" is not empty,use --force to go on.'.error, currentDirectory);
+    process.exit(0);
+}
