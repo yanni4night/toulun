@@ -4,8 +4,7 @@
  * changelog
  * 2014-04-15[21:21:21]:created
  *
- * @info yinyong,osx-x64,UTF-8,10.129.173.56,js,/Volumes/yinyong/gamesubject/anheitulong
- * @author yanni4night@gmail.com
+ * @author yanni4night@gmail.com http://yanni4night.com
  * @version 0.0.1
  * @since 0.0.1
  */
@@ -14,10 +13,11 @@ var crypto = require('crypto');
 
 module.exports = function(grunt) {
 
-    const STATIC_DIR = 'static/';
-    const BUILD_DIR = 'build/';
+    "use strict";
+    var STATIC_DIR = 'static/';
+    var BUILD_DIR = 'build/';
 
-    const toulun = grunt.file.readJSON('_data/index.json');
+    var toulun = grunt.file.readJSON('_data/index.json');
 
     grunt.initConfig({
         jshint: {
@@ -31,7 +31,7 @@ module.exports = function(grunt) {
                     expand: true,
                     cwd: STATIC_DIR,
                     src: ['**/*.js'],
-                    dest: BUILD_DIR+STATIC_DIR
+                    dest: BUILD_DIR + STATIC_DIR
                 }]
             }
         },
@@ -45,7 +45,7 @@ module.exports = function(grunt) {
                     cwd: STATIC_DIR,
                     src: ['**/*.less'],
                     ext: '.css',
-                    dest: BUILD_DIR+STATIC_DIR
+                    dest: BUILD_DIR + STATIC_DIR
                 }]
             }
         },
@@ -70,7 +70,7 @@ module.exports = function(grunt) {
         },
         'regex-replace': {
             stamp: {
-                src: [BUILD_DIR+'**/*.html'],
+                src: [BUILD_DIR + '**/*.html'],
                 actions: [{
                     name: '@',
                     search: /@([\w\-]+?)@/mg,
@@ -81,15 +81,14 @@ module.exports = function(grunt) {
             }
 
         },
-        copy:{
-        },
-        imagemin:{
-            images:{
-                files:[{
-                                        expand: true,
-                    cwd:STATIC_DIR,
+        copy: {},
+        imagemin: {
+            images: {
+                files: [{
+                    expand: true,
+                    cwd: STATIC_DIR,
                     src: '**/*.{gif,png,jpg}',
-                    dest:BUILD_DIR+STATIC_DIR
+                    dest: BUILD_DIR + STATIC_DIR
                 }]
             }
         },
@@ -103,7 +102,7 @@ module.exports = function(grunt) {
             options: {
                 force: true
             },
-            built: ["build/**/*", "**/._*"]
+            built: [BUILD_DIR + "*", "**/._*", "**/.DS_Store"]
         },
         htmlmin: {
             options: {
@@ -113,23 +112,23 @@ module.exports = function(grunt) {
             html: {
                 files: [{
                     expand: true,
-                    cwd:BUILD_DIR,
+                    cwd: BUILD_DIR,
                     src: '**/*.html',
                     ext: '.html',
-                    dest:BUILD_DIR
+                    dest: BUILD_DIR
                 }]
             }
         },
         stamp: {
             options: {
-                baseDir:BUILD_DIR,
+                baseDir: BUILD_DIR,
             },
             index: {
                 files: [{
                     expand: true,
                     cwd: BUILD_DIR,
                     src: ['**/*.{html,css}'],
-                    dest:BUILD_DIR
+                    dest: BUILD_DIR
                 }]
             }
         },
@@ -170,5 +169,6 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-shell');
 
 
-    grunt.registerTask('default', ['jshint','clean', 'uglify', 'less','imagemin','twig_render','stamp','regex-replace','htmlmin']);
+    grunt.registerTask('default', ['jshint', 'clean', 'uglify', 'less', 'imagemin', 'twig_render', 'stamp', 'regex-replace', 'htmlmin']);
+    grunt.registerTask('server',['express']);
 };
