@@ -1,15 +1,18 @@
 /**
- * Gruntfile.js
- *
- * changelog
- * 2014-04-15[21:21:21]:created
- *
- * @author yanni4night@gmail.com http://yanni4night.com
- * @version 0.0.1
- * @since 0.0.1
- */
+  * Copyright (C) 2014 yanni4night.com
+  *
+  * Gruntfile.js
+  *
+  * changelog
+  * 2014-04-15[21:21:21]:authorized
+  * 2014-05-04[10:58:33]:clean
+  *
+  * @info yinyong,osx-x64,UTF-8,10.129.164.4,js,/Users/yinyong/work/jsonData/clo
+  * @author yanni4night@gmail.com
+  * @version 0.1.1
+  * @since 0.1.0
+  */
 var fs = require('fs');
-var crypto = require('crypto');
 
 module.exports = function(grunt) {
 
@@ -17,7 +20,7 @@ module.exports = function(grunt) {
     var STATIC_DIR = 'static/';
     var BUILD_DIR = 'build/';
 
-    var toulun = grunt.file.readJSON('_data/index.json');
+    var jsonData = grunt.file.readJSON('_data/index.json');
 
     grunt.initConfig({
         jshint: {
@@ -64,7 +67,7 @@ module.exports = function(grunt) {
                 files: [{
                     template: 'template/index.html',
                     data: '_data/index.json',
-                    dest: 'build/template/index.html'
+                    dest: BUILD_DIR+'index.html'
                 }]
             }
         },
@@ -75,7 +78,7 @@ module.exports = function(grunt) {
                     name: '@',
                     search: /@([\w\-]+?)@/mg,
                     replace: function(n) {
-                        return toulun[RegExp.$1] || ''
+                        return jsonData[RegExp.$1] || ''
                     }
                 }]
             }
@@ -94,7 +97,7 @@ module.exports = function(grunt) {
         },
         watch: {
             build: {
-                files: ['static/js/*.js', 'static/css/*.less', 'template/*.html', '_data/*.json'],
+                files: ['static/js/**/*.js', 'static/css/**/*.less', 'template/**/*.html', '_data/**/*.json'],
                 tasks: ['default']
             }
         },
@@ -169,6 +172,6 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-shell');
 
 
-    grunt.registerTask('default', ['jshint', 'clean', 'uglify', 'less', 'imagemin', 'twig_render', 'stamp', 'regex-replace', 'htmlmin']);
+    grunt.registerTask('default', []);
     grunt.registerTask('server',['express']);
 };
