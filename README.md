@@ -1,3 +1,7 @@
+
+Deprecated by [yeoman](http://yeoman.io/)
+======
+
 toulun
 ======
 
